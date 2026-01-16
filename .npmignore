@@ -1,0 +1,35 @@
+# Tests and test-related files
+test/
+tests/
+__tests__/
+*.spec.js
+*.test.js
+
+# Configuration files (keep in Git but exclude from package)
+.travis.yml
+.eslintrc.js
+.babelrc.js
+jest.config.js
+
+# Source code and documentation (only publish built files)
+src/
+docs/
+CONTRIBUTING.md
+README.md
+
+# Build artifacts
+dist/
+build/
+coverage/
+.nyc_output/
+
+# IDE and editor files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local   

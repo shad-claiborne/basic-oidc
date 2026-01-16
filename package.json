@@ -2,14 +2,37 @@
   "name": "@shad-claiborne/basic-oidc",
   "version": "1.0.0",
   "description": "Simple OpenID Connect",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./identity-provider": {
+      "import": "./dist/identity-provider/index.js",
+      "types": "./dist/identity-provider/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "vitest"
   },
+  "keywords": [
+    "openid",
+    "oauth"
+  ],
   "author": "Shad Claiborne <me@shadclaiborne.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shad-claiborne/basic-oidc.git"
+  },
   "devDependencies": {
     "@types/axios": "^0.9.36",
     "@types/crypto-js": "^4.2.2",
