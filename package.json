@@ -1,7 +1,7 @@
 {
   "name": "@shad-claiborne/basic-oidc",
   "version": "1.0.0",
-  "description": "Simple OpenID Connect",
+  "description": "Basic OpenID Connect library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

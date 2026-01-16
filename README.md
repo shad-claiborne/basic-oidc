@@ -16,9 +16,12 @@ const authURL = authRequest.toURL();
 const window.location.replace(authURL.href);
 // IdP redirects back to https://this-app.com/basic-oidc/callback - 
 // i.e. A user has granted us authorization
-const authResponseParams = new URLSearchParams(window.location.hash.substring(1));
-const authResponse = Object.fromEntries(authResponseParams) as AuthorizationResponse;
-const tokenSet:TokenSet = await client.requestAccess(authResponse, codeChallenge);
+const authResponseParams = 
+        new URLSearchParams(window.location.hash.substring(1));
+const authResponse = 
+        Object.fromEntries(authResponseParams) as AuthorizationResponse;
+const tokenSet:TokenSet = 
+        await client.requestAccess(authResponse, codeChallenge);
 const id:Identity = await provider.getIdentity(client, tokenSet);
 // await client.revokeAccess(tokenSet);
 ```
