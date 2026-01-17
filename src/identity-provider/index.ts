@@ -555,14 +555,11 @@ export class Client {
      * @returns Promise<void>
      */
     public async revokeAccess(tokenSet: TokenSet): Promise<void> {
-        const credentials = base64.stringify(utf8.parse(`${this.clientId}:${this.clientSecret}`));
         const params = new URLSearchParams();
+        params.append('client_id', this.clientId);
+        params.append('client_secret', this.clientSecret);
         params.append('token', tokenSet.access_token);
         params.append('token_type_hint', 'access_token');
-        await axios.post(this.provider.getRevocationEndpoint(), params, {
-            headers: {
-                'Authorization': `Basic ${credentials}`
-            }
-        });
+        await axios.post(this.provider.getRevocationEndpoint(), params);
     }
 }
