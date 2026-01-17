@@ -407,20 +407,22 @@ export class IdentityProvider {
      * getIdentity
      * @param client Client
      * @param tokenSet TokenSet
-     * @returns Promise<Identity | null>
+     * @returns Promise<Identity>
      */
-    public async getIdentity(client: Client, tokenSet: TokenSet): Promise<Identity | null> {
-        let id: Identity | null = null;
+    public async getIdentity(client: Client, tokenSet: TokenSet): Promise<Identity> {
+        let id: Identity;
 
         if (tokenSet.id_token) {
             const jwks = createRemoteJWKSet(new URL(this.config.jwks_uri));
             const { payload } = await jwtVerify(tokenSet.id_token, jwks, { issuer: this.config.issuer });
             id = payload as Identity;
         }
-        else {
+        else if (tokenSet.access_token) {
             const api = new IdentityProviderApi(this, tokenSet);
             id = await api.fetchUserinfo();
         }
+        else
+            throw new Error('invalid token set');
         return id;
     }
 }
