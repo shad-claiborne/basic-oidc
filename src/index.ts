@@ -40,11 +40,14 @@ export interface AuthorizationResponse {
 }
 
 export interface TokenSet {
-    token_type: string;
-    access_token: string;
-    expires_in: number;
-    refresh_token: string;
+    access_token?: string;
+    refresh_token?: string;
     id_token?: string;
+}
+
+export interface TokenResponse extends TokenSet {
+    token_type: string;
+    expires_in: number;
 }
 
 export interface Identity {
@@ -540,6 +543,8 @@ export class Client {
      * @returns Promise<TokenSet>
      */
     public async refreshAccess(tokenSet: TokenSet): Promise<TokenSet> {
+        if (tokenSet.refresh_token === undefined)
+            throw new Error('undefined refresh token');
         const tokenRequest = new TokenRequest(this)
             .setRefreshToken(tokenSet.refresh_token)
             .setGrantType('refresh_token');
@@ -553,6 +558,8 @@ export class Client {
      * @returns Promise<void>
      */
     public async revokeAccess(tokenSet: TokenSet): Promise<void> {
+        if (tokenSet.access_token === undefined)
+            throw new Error('undefined access token');
         const params = new URLSearchParams();
         params.append('client_id', this.clientId);
         params.append('client_secret', this.clientSecret);
