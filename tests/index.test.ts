@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { IdentityProvider, AuthorizationResponse, Client } from '../src/identity-provider';
-import { createIdentityProvider } from '../src';
+import { IdentityProvider, AuthorizationResponse, Client, createIdentityProvider } from '../src';
 import axios from 'axios';
 
 describe("Core logic", async () => {

@@ -9,10 +9,6 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./identity-provider": {
-      "import": "./dist/identity-provider/index.js",
-      "types": "./dist/identity-provider/index.d.ts"
-    },
     "./package.json": "./package.json"
   },
   "files": [
