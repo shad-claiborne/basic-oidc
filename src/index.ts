@@ -542,16 +542,16 @@ export class Client {
     /**
      * refreshAccess
      * @param tokenSet TokenSet
-     * @returns Promise<TokenSet>
+     * @returns Promise<TokenResponse>
      */
-    public async refreshAccess(tokenSet: TokenSet): Promise<TokenSet> {
+    public async refreshAccess(tokenSet: TokenSet): Promise<TokenResponse> {
         if (tokenSet.refresh_token === undefined)
             throw new Error('undefined refresh token');
         const tokenRequest = new TokenRequest(this)
             .setRefreshToken(tokenSet.refresh_token)
             .setGrantType('refresh_token');
         const res = await axios.post(this.provider.getTokenEndpoint(), tokenRequest.toURLSearchParams());
-        return res.data as TokenSet;
+        return res.data as TokenResponse;
     }
 
     /**
