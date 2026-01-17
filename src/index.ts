@@ -523,9 +523,9 @@ export class Client {
      * requestAccess
      * @param authResponse AuthorizationResponse
      * @param codeVerifier string
-     * @returns Promise<TokenSet>
+     * @returns Promise<TokenResponse>
      */
-    public async requestAccess(authResponse: AuthorizationResponse, codeVerifier?: string): Promise<TokenSet> {
+    public async requestAccess(authResponse: AuthorizationResponse, codeVerifier?: string): Promise<TokenResponse> {
         const tokenRequest = new TokenRequest(this);
 
         if (authResponse.code === undefined)
@@ -536,7 +536,7 @@ export class Client {
         if (codeVerifier)
             tokenRequest.setCodeVerifier(codeVerifier);
         const res = await axios.post(this.provider.getTokenEndpoint(), tokenRequest.toURLSearchParams());
-        return res.data as TokenSet;
+        return res.data as TokenResponse;
     }
 
     /**
