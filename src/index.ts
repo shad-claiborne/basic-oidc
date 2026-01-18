@@ -405,11 +405,10 @@ export class IdentityProvider {
 
     /**
      * decodeIdentityToken
-     * @param client Client
      * @param token string
      * @returns Promise<Identity>
      */
-    public async decodeIdentityToken(client: Client, token: string): Promise<Identity> {
+    public async decodeIdentityToken(token: string): Promise<Identity> {
         const jwks = createRemoteJWKSet(new URL(this.config.jwks_uri));
         const { payload } = await jwtVerify(token, jwks, { issuer: this.config.issuer });
         const id = payload as Identity;
@@ -418,15 +417,14 @@ export class IdentityProvider {
 
     /**
      * getIdentity
-     * @param client Client
      * @param tokenSet TokenSet
      * @returns Promise<Identity>
      */
-    public async getIdentity(client: Client, tokenSet: TokenSet): Promise<Identity> {
+    public async getIdentity(tokenSet: TokenSet): Promise<Identity> {
         let id: Identity;
 
         if (tokenSet.id_token) {
-            id = await this.decodeIdentityToken(client, tokenSet.id_token);
+            id = await this.decodeIdentityToken(tokenSet.id_token);
         }
         else if (tokenSet.access_token) {
             const api = new IdentityProviderApi(this, tokenSet);
