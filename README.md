@@ -22,7 +22,7 @@ const authResponseParams =
 const authResponse = 
         Object.fromEntries(authResponseParams) as AuthorizationResponse;
 const tokenSet:TokenSet = 
-        await client.requestAccess(authResponse, codeChallenge);
+        await client.requestAccess(authResponse, { codeVerifier: codeChallenge });
 const id:Identity = await provider.getIdentity(client, tokenSet);
 // await client.revokeAccess(tokenSet);
 ```
