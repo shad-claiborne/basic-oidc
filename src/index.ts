@@ -48,6 +48,7 @@ export interface TokenSet {
 export interface TokenResponse extends TokenSet {
     token_type: string;
     expires_in: number;
+    refresh_token_expires_in?: number;
 }
 
 export interface Identity {
