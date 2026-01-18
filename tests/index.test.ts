@@ -32,9 +32,8 @@ describe("Core logic", async () => {
         tokenSet = await client.refreshAccess(tokenSet);
         expect(tokenSet).toBeDefined();
 
-        const id = await provider.getIdentity(client, tokenSet);
+        const id = await provider.getIdentity(tokenSet);
         expect(id).not.toBeNull();
-        console.log(id);
 
         await client.revokeAccess(tokenSet);
     });

@@ -56,6 +56,10 @@ export interface Identity {
     email?: string;
 }
 
+export interface IdentityToken extends Identity {
+    exp: number
+}
+
 /**
  * class AuthorizationRequest
  */
@@ -408,10 +412,10 @@ export class IdentityProvider {
      * @param token string
      * @returns Promise<Identity>
      */
-    public async decodeIdentityToken(token: string): Promise<Identity> {
+    public async decodeIdentityToken(token: string): Promise<IdentityToken> {
         const jwks = createRemoteJWKSet(new URL(this.config.jwks_uri));
         const { payload } = await jwtVerify(token, jwks, { issuer: this.config.issuer });
-        const id = payload as Identity;
+        const id = payload as IdentityToken;
         return id;
     }
 
