@@ -1,3 +1,4 @@
+# This package is not intended for production environments.
 ```ts
 const issuer = 'https://id.some-idp.com';
 const provider:IdentityProvider = await createIdentityProvider(issuer);

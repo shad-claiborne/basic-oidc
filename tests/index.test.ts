@@ -26,7 +26,7 @@ describe("Core logic", async () => {
         expect(authResponse.state).toBeDefined();
         expect(authResponse.state).toEqual('base64');
 
-        let tokenSet = await client.requestAccess(authResponse, 'test');
+        let tokenSet = await client.requestAccess(authResponse, { codeVerifier: 'test' });
         expect(tokenSet).toBeDefined();
 
         tokenSet = await client.refreshAccess(tokenSet);

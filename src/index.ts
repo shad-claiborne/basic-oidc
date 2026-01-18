@@ -522,10 +522,10 @@ export class Client {
     /**
      * requestAccess
      * @param authResponse AuthorizationResponse
-     * @param codeVerifier string
+     * @param args object
      * @returns Promise<TokenResponse>
      */
-    public async requestAccess(authResponse: AuthorizationResponse, codeVerifier?: string): Promise<TokenResponse> {
+    public async requestAccess(authResponse: AuthorizationResponse, params: { redirectUri?: string, codeVerifier?: string } = {}): Promise<TokenResponse> {
         const tokenRequest = new TokenRequest(this);
 
         if (authResponse.code === undefined)
@@ -533,8 +533,10 @@ export class Client {
         tokenRequest.setCode(authResponse.code)
             .setGrantType('authorization_code');
 
-        if (codeVerifier)
-            tokenRequest.setCodeVerifier(codeVerifier);
+        if (params.redirectUri)
+            tokenRequest.setRedirectUri(params.redirectUri);
+        if (params.codeVerifier)
+            tokenRequest.setCodeVerifier(params.codeVerifier);
         const res = await axios.post(this.provider.getTokenEndpoint(), tokenRequest.toURLSearchParams());
         return res.data as TokenResponse;
     }
